@@ -1,20 +1,20 @@
-FROM gitpod/workspace-full
+FROM continuumio/miniconda3
 
-# Install conda
-RUN curl -LO https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-  && bash Miniconda3-latest-Linux-x86_64.sh -b -p ~/miniconda \
-  && rm Miniconda3-latest-Linux-x86_64.sh \
-  && echo "source ~/miniconda/etc/profile.d/conda.sh" >> ~/.bashrc
+# Install:
+# - git (and git-lfs), for git operations (to e.g. push your work).
+#   Also required for setting up your configured dotfiles in the workspace.
+# - sudo, while not required, is recommended to be installed, since the
+#   workspace user (`gitpod`) is non-root and won't be able to install
+#   and use `sudo` to install any other tools in a live workspace.
+RUN apt-get update && apt-get install -yq \
+    git \
+    wget \
+    git-lfs \
+    sudo \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/*
 
-# Install any required packages via conda
-RUN conda install -n base -c conda-forge mamba \
-  && conda activate base \
-  && echo "conda activate base" >> ~/.bashrc \
-  && mamba init >> >> ~/.bashrc \
-  && mamba create -c conda-forge -c bioconda -n snakemake snakemake \
-  && conda activate snakemake 
-  
-  && conda install -n myenv pandas numpy matplotlib
+# Create the gitpod user. UID must be 33333.
+RUN useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod
 
-# Set the default command to bash
-CMD ["bash"]
+USER gitpod
+

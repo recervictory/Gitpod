@@ -1,0 +1,7 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Start Conda Environment
+    command: conda activate myenv
+    init: true

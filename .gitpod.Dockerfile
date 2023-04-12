@@ -27,9 +27,6 @@ RUN /bin/bash -c "source activate base && \
 CMD ["bash"]
 
 
-CMD ["bash"]
-
-
 
 
 

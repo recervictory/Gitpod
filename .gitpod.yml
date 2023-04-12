@@ -3,6 +3,6 @@ image:
 tasks:
   - init: |
       mamba init
-  - command: 
+      source ~/.bashrc
       mamba activate snakemake
 

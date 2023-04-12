@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN apt-get update && apt-get install -y wget bzip2 ca-certificates
+RUN apt-get update && apt-get install -y wget bzip2 ca-certificates git
 
 RUN wget -qO /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \

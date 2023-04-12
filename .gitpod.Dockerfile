@@ -1,17 +1,36 @@
-FROM continuumio/miniconda3
+FROM ubuntu:latest
 
-# Install:
-# - git (and git-lfs), for git operations (to e.g. push your work).
-#   Also required for setting up your configured dotfiles in the workspace.
-# - sudo, while not required, is recommended to be installed, since the
-#   workspace user (`gitpod`) is non-root and won't be able to install
-#   and use `sudo` to install any other tools in a live workspace.
-RUN apt-get update && apt-get install -yq \
-    git \
-    wget \
-    git-lfs \
-    sudo \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/*
+RUN apt-get update && apt-get install -y wget bzip2 ca-certificates
+
+RUN wget -qO /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \
+    rm /tmp/miniconda.sh
+
+ENV PATH /opt/conda/bin:$PATH
+
+FROM ubuntu:latest
+
+RUN apt-get update && apt-get install -y wget bzip2 ca-certificates git
+
+RUN wget -qO /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \
+    rm /tmp/miniconda.sh
+
+ENV PATH /opt/conda/bin:$PATH
+
+RUN /bin/bash -c "source activate base && \
+    conda config --add channels conda-forge && \
+    conda config --add channels bioconda && \
+    conda install -y mamba && \
+    mamba create -y -n snakemake snakemake"
+
+CMD ["bash"]
+
+
+CMD ["bash"]
+
+
+
 
 
 

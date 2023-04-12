@@ -2,11 +2,7 @@ image:
   file: .gitpod.Dockerfile
 tasks:
   - init: |
-      conda install -n base -c conda-forge mamba \
-      && conda activate base \
-      && echo "conda activate base" >> ~/.bashrc \
-      && mamba init >> ~/.bashrc \
-      && mamba create -c conda-forge -c bioconda -n snakemake snakemake \
-      && conda activate snakemake
-
+      mamba init
+  - command: 
+      mamba activate snakemake
 

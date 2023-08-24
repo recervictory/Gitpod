@@ -16,9 +16,7 @@ RUN wget -qO /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-la
 # Add Miniconda to the PATH
 ENV PATH /home/myuser/miniconda/bin:$PATH
 
-# Configure conda channels and create the 'snakemake' environment
-RUN conda config --add channels conda-forge && \
-    conda config --add channels bioconda && 
+
 
 # Set the default command to bash
 CMD ["bash"]

@@ -7,6 +7,7 @@ RUN wget -qO /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-la
     rm /tmp/miniconda.sh
 
 ENV PATH /opt/conda/bin:$PATH
+ENV PATH /workspace/Gitpod/miniconda/bin:$PATH
 
 RUN /bin/bash -c "source activate base && \
     conda config --add channels conda-forge && \
